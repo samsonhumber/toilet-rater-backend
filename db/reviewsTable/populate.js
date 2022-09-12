@@ -3,7 +3,7 @@
 import { ExecuteStatementCommand } from "@aws-sdk/client-dynamodb";
 import { ddbDocClient } from "../dynamoClient";
 
-const sampleReviewData = [
+export const sampleReviewData = [
     {'id': '6', 'user': 'samsonhumber', 'toilet': 'Yelverton WC', 'gridref': 'YX241365', 'ratings': {'decor': { N: '3' }, 'clean': { N: '2' }, 'ux':{ N: '3.5' }}, 'comment' : 'Not such a bad bog'},
     {'id': '7', 'user': 'otheerGuy34', 'toilet': 'Yelverton WC', 'gridref': 'YX241365', 'ratings': {'overall': { N: '1' }}, 'comment' : 'pretty awful'}
 ];
