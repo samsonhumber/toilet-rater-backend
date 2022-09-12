@@ -6,15 +6,23 @@ async function createReviews() {
       TableName : "Reviews",
       AttributeDefinitions: [
         {
-          AttributeName: "id",
+          AttributeName: "time",
           AttributeType: "S",
-        }
+        },
+        {
+          AttributeName: "user",
+          AttributeType: "S",
+        },
       ],
       KeySchema: [
           {
-              AttributeName: "id",
+              AttributeName: "time",
               KeyType: "HASH", //Partition key
-          }
+          },
+          {
+            AttributeName: "user",
+            KeyType: "RANGE", //Sort key
+        }
       ],
       BillingMode: "PAY_PER_REQUEST",
     })

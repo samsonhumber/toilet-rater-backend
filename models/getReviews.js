@@ -1,8 +1,12 @@
 import { ddbDocClient } from "../db/dynamoClient";
+import { ExecuteStatementCommand } from "@aws-sdk/client-dynamodb";
+import { processDynamoData } from './auxFunctions.js';
 
 export async function getReviewsFromToiletName(toiletName, gridRef) {
+  console.log(toiletName, gridRef);
+  // Restrict params to perhaps "user", "ratings", "comment"
   const params = {
-    Statement: "SELECT user, ratings, comment FROM " + Reviews + " WHERE toilet=? AND gridref=?",
+    Statement: `SELECT * FROM "Reviews" where "toilet"=? AND "gridref"=?`,
     Parameters: [{ S: toiletName }, { S: gridRef }],
   };
   try {
@@ -15,15 +19,16 @@ export async function getReviewsFromToiletName(toiletName, gridRef) {
         data.Items[i].comment
       );
     }
-    return data;
+    return processDynamoData(data);
   } catch (err) {
     console.error(err);
   }
 };
 
 export async function getReviewsFromUserName(userName) {
+  console.log(userName);
   const params = {
-    Statement: "SELECT toilet, gridref, ratings, comment FROM " + Reviews + " WHERE user=?",
+    Statement: `SELECT * FROM "Reviews" WHERE "user"=?`,
     Parameters: [{ S: userName }],
   };
   try {
@@ -37,7 +42,7 @@ export async function getReviewsFromUserName(userName) {
         data.Items[i].comment
       );
     }
-    return data;
+    return processDynamoData(data);
   } catch (err) {
     console.error(err);
   }

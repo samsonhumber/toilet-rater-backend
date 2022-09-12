@@ -1,7 +1,13 @@
+/*
 import { test,expect } from '@jest/globals';
 import { getReviewsFromToiletName, getReviewsFromUserName } from './getReviews.js';
-import { sampleReviewData } from '../db/reviewsTable/populate.js'
-import { describe } from 'node:test';
+//import { sampleReviewData } from '../db/reviewsTable/populate.js'
+
+const sampleReviewData = [
+    {'time': '2022-09-12T16:32:04+00:00', 'user': 'samsonhumber', 'toilet': 'Yelverton WC', 'gridref': 'YX241365', 'ratings': {'decor': { N: '3' }, 'clean': { N: '2' }, 'ux':{ N: '3.5' }}, 'comment' : 'Not such a bad bog'},
+    {'time': '2022-09-12T16:34:10+00:00', 'user': 'otheerGuy34', 'toilet': 'Yelverton WC', 'gridref': 'YX241365', 'ratings': {'overall': { N: '1' }}, 'comment' : 'pretty awful'}
+];
+
 
 describe ('getReviewsFromToiletName tests', () => {
 test('expects search for sample toilet to return the sample data', async () => {
@@ -10,7 +16,7 @@ test('expects search for sample toilet to return the sample data', async () => {
     //ACT
     const expected = sampleReviewData; 
     //ASSERT
-    expect(actual).toEqual(expected);
+    expect(actual.Items).toEqual(expected);
 });
 
 test('expects search for nonsensical name to return empty array', async () => {
@@ -19,14 +25,14 @@ test('expects search for nonsensical name to return empty array', async () => {
     //ACT
     const expected = []; 
     //ASSERT
-    expect(actual).toEqual(expected);
+    expect(actual.Items).toEqual(expected);
 })
 });
 
 describe('getReviewsFromUserName tests', () => {
     test('expects search for my username to return one review', async () => {
         //ARRANGE
-        const actual = await getReviewsFromUsertName('samsonhumber');
+        const actual = await getReviewsFromUserName('samsonhumber');
         //ACT
         const expected = sampleReviewData[0]; 
         //ASSERT
@@ -42,3 +48,5 @@ describe('getReviewsFromUserName tests', () => {
         expect(actual).toEqual(expected);
     })
 })
+
+*/
