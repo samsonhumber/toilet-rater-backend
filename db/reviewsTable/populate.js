@@ -1,11 +1,7 @@
 // Use PartiQL language to write commands - may need to get support on VS Code beforehand
 
-import { DynamoDBClient, BatchExecuteStatementCommand, ExecuteStatementCommand } from "@aws-sdk/client-dynamodb";
-export const REGION = "eu-west-2"; 
-export const ddbClient = new DynamoDBClient({ region: REGION });
-import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
+import { ExecuteStatementCommand } from "@aws-sdk/client-dynamodb";
+import { ddbDocClient } from "../dynamoClient";
 
 const sampleReviewData = [
     {'id': '6', 'user': 'samsonhumber', 'toilet': 'Yelverton WC', 'gridref': 'YX241365', 'ratings': {'decor': { N: '3' }, 'clean': { N: '2' }, 'ux':{ N: '3.5' }}, 'comment' : 'Not such a bad bog'},
@@ -13,7 +9,6 @@ const sampleReviewData = [
 ];
 
 async function populateReviews(entry) {
-    //console.log(sampleReviewData[entry].id)
     const tableName = "Reviews";
     const params = {
         Statement: "INSERT INTO " + tableName + "  value  {'id':?, 'user':?, 'toilet':?, 'gridref':?, 'ratings':?, 'comment':?}", 
