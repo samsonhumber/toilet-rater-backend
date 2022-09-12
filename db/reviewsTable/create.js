@@ -21,3 +21,5 @@ async function createReviews() {
   console.log("Success!", data)
   return data
 }
+
+createReviews();

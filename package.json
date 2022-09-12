@@ -7,8 +7,9 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "create-r": "node ./db/reviews-table/create.js",
-    "populate-r": "node ./db/reviews-table/populate.js"
+    "create-r": "node ./db/reviewsTable/create.js",
+    "populate-r": "node ./db/reviewsTable/populate.js",
+    "delete-r": "node ./db/reviewsTable/delete.js"
   },
   "type": "module",
   "repository": {
@@ -21,10 +22,12 @@
     "url": "https://github.com/samsonhumber/toilet-rater-backend/issues"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.168.0",
+    "@aws-sdk/client-s3": "^3.32.0",
+    "@aws-sdk/lib-dynamodb": "^3.168.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "@aws-sdk/client-s3": "^3.32.0"
+    "express": "^4.18.1"
   },
   "devDependencies": {
     "jest": "^28.1.3",

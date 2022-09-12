@@ -7,3 +7,5 @@ async function deleteReviews() {
     })
   console.log("Table has been deleted");
 }
+
+deleteReviews();
