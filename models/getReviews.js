@@ -1,4 +1,4 @@
-import { ddbDocClient } from "../db/dynamoClient";
+import { ddbDocClient } from "../db/dynamoClient.js";
 import { ExecuteStatementCommand } from "@aws-sdk/client-dynamodb";
 import { processDynamoData } from './auxFunctions.js';
 
@@ -26,6 +26,7 @@ export async function getReviewsFromToiletName(toiletName, gridRef) {
 };
 
 export async function getReviewsFromUserName(userName) {
+  console.log(userName);
   const params = {
     Statement: `SELECT * FROM "Reviews" WHERE "user"=?`,
     Parameters: [{ S: userName }],
@@ -41,7 +42,7 @@ export async function getReviewsFromUserName(userName) {
         data.Items[i].comment
       );
     }
-    
+    console.log(data);
     return processDynamoData(data);
   } catch (err) {
     console.error(err);
