@@ -3,7 +3,6 @@ import { ExecuteStatementCommand } from "@aws-sdk/client-dynamodb";
 import { processDynamoData } from './auxFunctions.js';
 
 export async function getReviewsFromToiletName(toiletName, gridRef) {
-  console.log(toiletName, gridRef);
   // Restrict params to perhaps "user", "ratings", "comment"
   const params = {
     Statement: `SELECT * FROM "Reviews" where "toilet"=? AND "gridref"=?`,
@@ -19,6 +18,7 @@ export async function getReviewsFromToiletName(toiletName, gridRef) {
         data.Items[i].comment
       );
     }
+
     return processDynamoData(data);
   } catch (err) {
     console.error(err);
@@ -26,7 +26,6 @@ export async function getReviewsFromToiletName(toiletName, gridRef) {
 };
 
 export async function getReviewsFromUserName(userName) {
-  console.log(userName);
   const params = {
     Statement: `SELECT * FROM "Reviews" WHERE "user"=?`,
     Parameters: [{ S: userName }],
@@ -42,6 +41,7 @@ export async function getReviewsFromUserName(userName) {
         data.Items[i].comment
       );
     }
+    
     return processDynamoData(data);
   } catch (err) {
     console.error(err);

@@ -11,18 +11,18 @@ const sampleReviewData = [
 describe ('getReviewsFromToiletName tests', () => {
 test('expects search for sample toilet to return the sample data', async () => {
     //ARRANGE
+    const expected = sampleReviewData;
+    //ACT 
     const actual = await getReviewsFromToiletName(sampleReviewData[0].toilet, sampleReviewData[0].gridref);
-    //ACT
-    const expected = sampleReviewData; 
     //ASSERT
     expect(actual).toEqual(expected);
 });
 
 test('expects search for nonsensical name to return empty array', async () => {
     //ARRANGE
-    const actual = await getReviewsFromToiletName('hghghghghghghghghghghghgh');
+    const expected = [];
     //ACT
-    const expected = []; 
+    const actual = await getReviewsFromToiletName('hghghghghghghghghghghghgh', 'no');
     //ASSERT
     expect(actual).toEqual(expected);
 })
@@ -31,18 +31,18 @@ test('expects search for nonsensical name to return empty array', async () => {
 describe('getReviewsFromUserName tests', () => {
     test('expects search for my username to return one review', async () => {
         //ARRANGE
-        const actual = await getReviewsFromUserName('samsonhumber');
+        const expected = [sampleReviewData[0]];
         //ACT
-        const expected = sampleReviewData[0]; 
+        const actual = await getReviewsFromUserName('samsonhumber');
         //ASSERT
         expect(actual).toEqual(expected);
     });
     
     test('expects search for the sample username to return the other review', async () => {
         //ARRANGE
-        const actual = await getReviewsFromUserName(sampleReviewData[1].user);
+        const expected = [sampleReviewData[1]];
         //ACT
-        const expected = sampleReviewData[1]; 
+        const actual = await getReviewsFromUserName(sampleReviewData[1].user);
         //ASSERT
         expect(actual).toEqual(expected);
     })
