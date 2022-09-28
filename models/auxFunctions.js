@@ -35,15 +35,21 @@ export function processDynamoData(rawData) {
 }
 
 export function formatRatingsForDynamo(ratingsArray) {
-    // Converts array of single-key objects to {'decor': { N: '3' }, 'clean': { N: '2' }, 'ux':{ N: '3.5' }} format
-    let ratingKeys = ratingsArray.map((entry) => {return Object.keys(entry)[0]});
-    console.log('Keys are', ratingKeys, 'in', ratingsArray, 'length', ratingKeys.length);
-    let dynamoRatings = {};
-    for(let i=0; i<ratingKeys.length; i++) {
-        console.log('Ratings object', ratingKeys[i], i);
-        console.log('Ratings value', ratingsArray[i][ratingKeys[i]]);
-        dynamoRatings[ratingKeys[i]] = {N: ratingsArray[i][ratingKeys[i]]}
+    console.log(ratingsArray);
+    if(ratingsArray === [] || !ratingsArray) {
+        return {}
+    } else {
+        // Converts array of single-key objects to {'decor': { N: '3' }, 'clean': { N: '2' }, 'ux':{ N: '3.5' }} format
+        let ratingKeys = ratingsArray.map((entry) => {return Object.keys(entry)[0]});
+        console.log('Keys are', ratingKeys, 'in', ratingsArray, 'length', ratingKeys.length);
+        let dynamoRatings = {};
+        for(let i=0; i<ratingKeys.length; i++) {
+            console.log('Ratings object', ratingKeys[i], i);
+            console.log('Ratings value', ratingsArray[i][ratingKeys[i]]);
+            dynamoRatings[ratingKeys[i]] = {N: ratingsArray[i][ratingKeys[i]]}
+        }
+        console.log(dynamoRatings);
+        return dynamoRatings
     }
-    console.log(dynamoRatings);
-    return dynamoRatings
+    
 }

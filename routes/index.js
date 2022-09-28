@@ -23,6 +23,7 @@ reviewsRouter.get("/userreviews", async function (req, res) {
 
 reviewsRouter.post("/review", async function (req, res) {
   const newReview = req.body;
+  //console.log(req.body);
   const result = await postToiletReview(newReview);
   const responseObject = { success: true, payload: result };
   res.json(responseObject);
