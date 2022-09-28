@@ -6,17 +6,17 @@ export async function updateToiletReview(newReviewData) {
     let params;
     if(newReviewData.ratings && newReviewData.comment) {
         params = {
-            Statement: `UPDATE "Reviews" SET "ratings"=? SET "comment"=? WHERE "user"=? AND "time"=?`,
+            Statement: `UPDATE "Reviews" SET "ratings"=? SET "comment"=? WHERE "user"=? AND "time"=? RETURNING ALL NEW *`,
             Parameters: [{ M: formatRatingsForDynamo(newReviewData.ratings) }, { S: newReviewData.comment }, { S: newReviewData.reviewUser }, { S: newReviewData.reviewTime }],
         };
     } else if(newReviewData.ratings) {
         params = {
-            Statement: `UPDATE "Reviews" SET "ratings"=? WHERE "user"=? and "time"=?`,
+            Statement: `UPDATE "Reviews" SET "ratings"=? WHERE "user"=? and "time"=? RETURNING ALL NEW *`,
             Parameters: [{ M: formatRatingsForDynamo(newReviewData.ratings) }, { S: newReviewData.reviewUser }, { S: newReviewData.reviewTime }],
         };
     } else if(newReviewData.comment) {
         params = {
-            Statement: `UPDATE "Reviews" SET "comment"=? WHERE "user"=? and "time"=?`,
+            Statement: `UPDATE "Reviews" SET "comment"=? WHERE "user"=? and "time"=? RETURNING ALL NEW *`,
             Parameters: [{ S: newReviewData.comment }, { S: newReviewData.reviewUser }, { S: newReviewData.reviewTime }],
         };
     } else{
@@ -28,13 +28,12 @@ export async function updateToiletReview(newReviewData) {
     const data = await ddbDocClient.send(new ExecuteStatementCommand(params));
     for (let i = 0; i < data.Items.length; i++) {
       console.log(
-        "Success. The query posted a review for", data.Items[i].toilet, ". Item " + i,
+        "Success. The query updated a review for", data.Items[i].toilet,
         data.Items[i].user,
         data.Items[i].ratings,
         data.Items[i].comment
       );
     }
-    console.log("Success. The query updated a review");
     return data.Items;
   } catch (err) {
     console.error(err);

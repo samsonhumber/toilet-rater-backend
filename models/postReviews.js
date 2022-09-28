@@ -11,10 +11,10 @@ export async function postToiletReview(newReview) {
     const data = await ddbDocClient.send(new ExecuteStatementCommand(params));
     for (let i = 0; i < data.Items.length; i++) {
       console.log(
-        "Success. The query posted a review for", data.Items[i].toilet, ". Item " + i,
-        data.Items[i].user,
-        data.Items[i].ratings,
-        data.Items[i].comment
+        "Success. The query posted a review for", newReview.toiletName,
+        newReview.user,
+        newReview.ratings,
+        newReview.comment
       );
     }
     console.log("Success. The query posted a review");

@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import { getReviewsFromToiletName, getReviewsFromUserName } from "../models/getReviews.js";
 import { postToiletReview } from "../models/postReviews.js";
 import { updateToiletReview } from "../models/updateReviews.js";
+import { deleteUniqueReview } from "../models/deleteReviews.js";
 
 const reviewsRouter = express.Router();
 
@@ -32,6 +33,14 @@ reviewsRouter.put("/review", async function (req, res) {
   // For efficiency, a future improvement is to incorporate the new ratings into the old ones rather than replacing
   const newReviewData = req.body;
   const result = await updateToiletReview(newReviewData);
+  const responseObject = { success: true, payload: result };
+  res.json(responseObject);
+});
+
+reviewsRouter.delete("/review", async function (req, res) {
+  // Consider changing the path argument if delete routes to delete more than 1 review are made
+  const uniqueReviewKey = req.body;
+  const result = await deleteUniqueReview(uniqueReviewKey);
   const responseObject = { success: true, payload: result };
   res.json(responseObject);
 });
