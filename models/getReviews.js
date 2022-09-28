@@ -42,7 +42,6 @@ export async function getReviewsFromUserName(userName) {
         data.Items[i].comment
       );
     }
-    console.log(data);
     return processDynamoData(data);
   } catch (err) {
     console.error(err);
