@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import { getReviewsFromToiletName, getReviewsFromUserName } from "../models/getReviews.js";
 import { postToiletReview } from "../models/postReviews.js";
+import { updateToiletReview } from "../models/updateReviews.js";
 
 const reviewsRouter = express.Router();
 
@@ -25,5 +26,15 @@ reviewsRouter.post("/review", async function (req, res) {
   const responseObject = { success: true, payload: result };
   res.json(responseObject);
 });
+
+reviewsRouter.put("/review", async function (req, res) {
+  // Note that if the ratings is used here, then all ratings categories are required to be sent, so that information is not lost
+  // For efficiency, a future improvement is to incorporate the new ratings into the old ones rather than replacing
+  const newReviewData = req.body;
+  const result = await updateToiletReview(newReviewData);
+  const responseObject = { success: true, payload: result };
+  res.json(responseObject);
+});
+
 
 export { reviewsRouter };
