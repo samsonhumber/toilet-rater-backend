@@ -3,7 +3,7 @@ import { ExecuteStatementCommand } from "@aws-sdk/client-dynamodb";
 import { processDynamoData, formatRatingsForDynamo } from './auxFunctions.js';
 
 export async function postToiletReview(newReview) {
-  //console.log(newReview);
+  console.log(newReview);
   const params = {
     Statement: `INSERT INTO "Reviews" value {'user':?, 'toilet':?, 'gridref':?, 'time':?, 'ratings':?, 'comment':?}`,
     Parameters: [{ S: newReview.user }, { S: newReview.toilet }, { S: newReview.gridref }, { S: newReview.time }, { M: formatRatingsForDynamo(newReview.ratings) }, { S: newReview.comment }],

@@ -46,7 +46,7 @@ export function formatRatingsForDynamo(ratingsArray) {
         for(let i=0; i<ratingKeys.length; i++) {
             console.log('Ratings object', ratingKeys[i], i);
             console.log('Ratings value', ratingsArray[i][ratingKeys[i]]);
-            dynamoRatings[ratingKeys[i]] = {N: ratingsArray[i][ratingKeys[i]]}
+            dynamoRatings[ratingKeys[i]] = {N: String(ratingsArray[i][ratingKeys[i]])}
         }
         console.log(dynamoRatings);
         return dynamoRatings
